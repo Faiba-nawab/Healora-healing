@@ -1,0 +1,344 @@
+/* Background gradient on the root */
+.root {
+  font-family: "Inter", "Segoe UI", Arial, sans-serif;
+  -fx-font-family: "Inter", "Segoe UI", Arial, sans-serif;
+  background-color: #1a2a6c;
+  -fx-background-color: linear-gradient(to bottom right, #1a2a6c, #b21f1f, #fdbb2d);
+}
+
+/* Header */
+.app-header {
+  background-color: rgba(255,255,255,0.08);
+  -fx-background-color: rgba(255,255,255,0.08);
+  padding: 16px 24px 16px 24px;
+  -fx-padding: 16 24 16 24;
+  -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.25), 10, 0.25, 0, 4);
+  -fx-background-radius: 0 0 16 16;
+  border-color: rgba(255,255,255,0.15);
+  -fx-border-color: rgba(255,255,255,0.15);
+  border-width: 0 0 1px 0;
+  -fx-border-width: 0 0 1 0;
+}
+.app-title {
+  fill: white;
+  -fx-fill: white;
+  font-size: 28px;
+  -fx-font-size: 28px;
+  font-weight: 800;
+  -fx-font-weight: 800;
+  -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.35), 16, 0.3, 0, 4);
+}
+
+/* Sidebar */
+.sidebar {
+  min-width: 180px;
+  -fx-min-width: 180;
+  background-color: rgba(255,255,255,0.08);
+  -fx-background-color: rgba(255,255,255,0.08);
+  -fx-background-radius: 0 16 16 0;
+  -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.25), 10, 0.25, 0, 4);
+}
+.nav-btn {
+  background-color: transparent;
+  -fx-background-color: transparent;
+  color: white;
+  -fx-text-fill: white;
+  font-weight: 700;
+  -fx-font-weight: 700;
+  padding: 10px 14px 10px 14px;
+  -fx-padding: 10 14 10 14;
+  border-radius: 12px;
+  -fx-background-radius: 12;
+}
+/* Content area */
+.content-area {
+  background-color: transparent;
+  -fx-background-color: transparent;
+}
+/* Section title */
+.section-title {
+  fill: white;
+  -fx-fill: white;
+  font-size: 22px;
+  -fx-font-size: 22px;
+  font-weight: 800;
+  -fx-font-weight: 800;
+}
+/* Card (glass) */
+.card {
+  background-color: rgba(255,255,255,0.12);
+  -fx-background-color: rgba(255,255,255,0.12);
+  border-radius: 18px;
+  -fx-background-radius: 18;
+  border-color: rgba(255,255,255,0.18);
+  -fx-border-color: rgba(255,255,255,0.18);
+  -fx-border-radius: 18;
+  -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.35), 18, 0.3, 0, 8);
+  padding: 16px;
+  -fx-padding: 16;
+}
+.card-emoji {
+  fill: white;
+  -fx-fill: white;
+  font-size: 32px;
+  -fx-font-size: 28px;
+}
+
+.card-title {
+  fill: white;
+  -fx-fill: white;
+  font-size: 24px;
+  -fx-font-size: 24px;
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  -fx-font-family: Georgia, 'Times New Roman', Times, serif;
+  font-style: italic;
+  -fx-font-style: italic;
+  font-weight: 800;
+  -fx-font-weight: 800;
+}
+
+.card-desc {
+  fill: rgba(255,255,255,0.9);
+  -fx-fill: rgba(255,255,255,0.9);
+  font-size: 13px;
+  -fx-font-size: 13px;
+}
+
+/* Buttons */
+.primary-btn {
+  background-color: linear-gradient(to right, #36d1dc, #5b86e5);
+  -fx-background-color: linear-gradient(to right, #36d1dc, #5b86e5);
+  color: white;
+  -fx-text-fill: white;
+  font-weight: 800;
+  -fx-font-weight: 800;
+  border-radius: 12px;
+  -fx-background-radius: 12;
+  padding: 8px 16px 8px 16px;
+  -fx-padding: 8 16 8 16;
+}
+.primary-btn:hover {
+  background-color: linear-gradient(to right, #5b86e5, #36d1dc);
+  -fx-background-color: linear-gradient(to right, #5b86e5, #36d1dc);
+}
+
+.activity-icon .ikonli-font-icon {
+    -fx-icon-size: 32px;
+}
+
+.activity-btn .ikonli-font-icon {
+    -fx-icon-size: 16px;
+}
+
+
+/* ===================== */
+/* Journal Diary Styling */
+/* ===================== */
+
+.journal-dialog {
+    background-color: #fdf6e3;   /* cream paper color */
+    -fx-background-color: #fdf6e3;   /* cream paper color */
+    padding: 20px;
+    -fx-padding: 20;
+    border-color: #c8b68f;
+    -fx-border-color: #c8b68f;
+    border-width: 2px;
+    -fx-border-width: 2;
+    border-radius: 10px;
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
+}
+
+.journal-title {
+    font-size: 20px;
+    -fx-font-size: 20px;
+    font-family:"Lucida Handwriting", "Segoe Script", cursive;
+    -fx-font-family: "Lucida Handwriting", "Segoe Script", cursive;
+    color: #5d3a00;
+    -fx-text-fill: #5d3a00;
+    font-weight: bold;
+    -fx-font-weight: bold;
+    padding: 0 0 10px 0;
+    -fx-padding: 0 0 10 0;
+}
+
+.journal-meta {
+    font-size: 12px;
+    -fx-font-size: 12px;
+    font-family: "Courier New", monospace;
+    -fx-font-family: "Courier New", monospace;
+    color: #6b4f2f;
+    -fx-text-fill: #6b4f2f;
+    opacity: 0.8;
+    -fx-opacity: 0.8;
+}
+
+.journal-textarea {
+    background-color: #ddd5c3;
+    border-color: #c8b68f;
+    -fx-border-color: #c8b68f;
+    border-width: 3px;
+    -fx-border-width: 3;
+    border-radius: 5px;
+    -fx-border-radius: 5;
+    font-family: "Segoe Script", "Brush Script MT", cursive;
+    -fx-font-family: "Segoe Script", "Brush Script MT", cursive;
+    font-size: 14px;
+    -fx-font-size: 14px;
+    padding: 10px;
+    -fx-padding: 10;
+    color: #2e2e2e;
+    -fx-text-fill: #2e2e2e;
+}
+.journal-textarea .scroll-pane,
+.journal-textarea .viewport {
+    background-color: #cdc1a8;
+    -fx-background-color: #cdc1a8;
+}
+
+
+.journal-button {
+    background-color: #8c6b3f;
+    -fx-background-color: #8c6b3f;
+    color: white;
+    -fx-text-fill: white;
+    font-weight: bold;
+    -fx-font-weight: bold;
+    border-radius: 6px;
+    -fx-background-radius: 6;
+    padding: 6px 12px 6px 12px;
+    -fx-padding: 6 12 6 12;
+    cursor: pointer;
+    -fx-cursor: hand;
+}
+.journal-button:hover {
+    background-color: #a67c52;
+    -fx-background-color: #a67c52;
+}
+
+.index-container {
+    background-color: #fff8e7; /* parchment style */
+    -fx-background-color: #fff8e7; /* parchment style */
+    border-color:2px solid #d2b48c;
+    -fx-border-color: #d2b48c;
+    border-radius: 10px;
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
+    padding: 20px;
+    -fx-padding: 20;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 10, 0.5, 2, 2);
+}
+
+.index-title {
+    font-size: 18px;
+    -fx-font-size: 18px;
+    font-family: "Segoe Script", "Comic Sans MS", cursive;
+    -fx-font-family: "Segoe Script", "Comic Sans MS", cursive;
+    -fx-text-fill: #6b4226;
+    font-weight: bold;
+    -fx-font-weight: bold;
+}
+
+.index-search {
+    background-color: #fff;
+    -fx-background-color: #fff;
+    border-color: #c0a080;
+    -fx-border-color: #c0a080;
+    border-radius: 5px;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+    padding: 5px 10px;
+    -fx-padding: 5 10;
+}
+
+.index-list {
+    background-color: #fdfdf8;
+    -fx-background-color: #fdfdf8;
+    border-color: 2px solid #d2b48c;
+    -fx-border-color: #d2b48c;
+    border-radius: 5px;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+}
+
+
+/* ===================== */
+/* Breathing Dialog Styling */
+.dialog-title {
+  font-size: 24px;
+  -fx-font-size: 24px;
+  font-weight: bold;
+  -fx-font-weight: bold;
+  color: #331270;
+  -fx-text-fill: #331270;
+  font-family: "Lucida Handwriting", "Segoe Script", cursive;
+  -fx-font-family: "Lucida Handwriting", "Segoe Script", cursive;
+}
+.dialog-instruction {
+  font-size: 20px;
+  -fx-font-size: 20px;
+  color: #333;
+  -fx-text-fill: #333;
+  font-family:"Segoe Script", "Brush Script MT", cursive;
+  -fx-font-family: "Segoe Script", "Brush Script MT", cursive;
+}
+.dialog-meta {
+  font-size:16px;
+  -fx-font-size: 16px;
+  color: #666;
+  -fx-text-fill: #666;
+}
+
+/* General button style */
+.Bre-button {
+    background-color: #e57b7f;
+    -fx-background-color: linear-gradient(to bottom, #e57b7f, #fad0c4); /* gradient */
+    -fx-text-fill: #ffffff;
+    font-size: 14px;
+    -fx-font-size: 14px;
+    font-weight: bold;
+    -fx-font-weight: bold;
+    font-family: "Segoe UI", "Lucida Sans", sans-serif;
+    -fx-font-family: "Segoe UI", "Lucida Sans", sans-serif;
+    padding: 8px 16px 8px 16px;
+    -fx-padding: 8 16 8 16;
+    -fx-background-radius: 20;   /* rounded corners */
+    border-radius: 20px;
+    -fx-border-radius: 20;
+    cursor: hand;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow( gaussian , rgba(0,0,0,0.2) , 6,0,0,1 );
+    transition: 0.3s;
+    -fx-transition: 0.3s;
+}
+
+/* Hover effect */
+.Bre-button:hover {
+    background-color: #f093fb;
+    -fx-background-color: linear-gradient(to bottom, #f5576c, #f093fb);
+    -fx-scale-x: 1.05;
+    -fx-scale-y: 1.05;
+}
+
+/* Pressed (click) effect */
+.Bre-button:pressed {
+  background-color: #ff7e5f;
+    -fx-background-color: linear-gradient(to bottom, #d76d77, #ffaf7b);
+    -fx-scale-x: 0.97;
+    -fx-scale-y: 0.97;
+}
+
+/* Special style for settings button */
+.settings-btn {
+    background-color: #43cea2;
+    -fx-background-color: linear-gradient(to bottom, #43cea2, #185a9d);
+    -fx-text-fill: white;
+    font-size: 16px;
+    -fx-font-size: 16px;
+    -fx-background-radius: 50;
+    border-radius: 50px;
+    -fx-border-radius: 50;
+    padding: 10px;
+    -fx-padding: 10;
+}
+

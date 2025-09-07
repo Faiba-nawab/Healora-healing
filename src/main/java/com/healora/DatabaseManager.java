@@ -75,17 +75,6 @@ public class DatabaseManager {
         }
     }
 
-    // Delete journal entry
-    public static void deleteJournalEntry(JournalEntry entry) {
-        String sql = "DELETE FROM journal_entries WHERE page_number=?";
-        try (Connection conn = connect(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            pstmt.setInt(1, entry.getPage());
-            pstmt.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
     // Get all entries
     public static List<JournalEntry> getAllEntries() {
         List<JournalEntry> entries = new ArrayList<>();
@@ -138,16 +127,23 @@ public class DatabaseManager {
     return null;
 }
 
-public static void deleteJournalEntry(int page) {
-    String sql = "DELETE FROM journal WHERE page = ?";
+// 🗑 Delete journal entry from DB
+public static void deleteJournalEntry(JournalEntry entry) {
+    if (entry == null) return;
+
     try (Connection conn = connect();
-         PreparedStatement pstmt = conn.prepareStatement(sql)) {
-        pstmt.setInt(1, page);
-        pstmt.executeUpdate();
+         PreparedStatement stmt = conn.prepareStatement("DELETE FROM journal WHERE page = ?")) {
+
+        stmt.setInt(1, entry.getPage());
+        stmt.executeUpdate();
+
+        System.out.println("Deleted entry: Page " + entry.getPage());
+
     } catch (SQLException e) {
         e.printStackTrace();
     }
 }
+
 
 
 }

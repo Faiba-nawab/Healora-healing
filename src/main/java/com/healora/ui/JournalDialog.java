@@ -201,7 +201,8 @@ public class JournalDialog {
             int selectedPage = Integer.parseInt(
                     selected.split(":")[0].replace("Page ", "").trim()
             );
-            DatabaseManager.deleteJournalEntry(selectedPage);
+            JournalEntry entry = DatabaseManager.getJournalEntry(pageNumber);
+            DatabaseManager.deleteJournalEntry(entry);
             listView.getItems().remove(selected); // remove from UI
             showAlert("Deleted", "Page " + selectedPage + " was deleted.");
         } else {

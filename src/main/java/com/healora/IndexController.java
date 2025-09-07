@@ -84,8 +84,8 @@ public class IndexController {
     private void handleDelete() {
         JournalEntry selected = listView.getSelectionModel().getSelectedItem();
         if (selected != null) {
-            listView.getItems().remove(selected);
             DatabaseManager.deleteJournalEntry(selected);
+            loadEntries();
             showAlert("Deleted", "Entry deleted successfully.");
         } else {
             showAlert("No Selection", "Please select an entry to delete.");

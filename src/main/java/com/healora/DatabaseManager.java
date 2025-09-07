@@ -102,7 +102,7 @@ public class DatabaseManager {
     // 🔹 Return all journal pages as "Page X: yyyy-mm-dd"
 public static List<String> getAllJournalPages() {
     List<String> pages = new ArrayList<>();
-    String sql = "SELECT page, date, content FROM journal ORDER BY page ASC";
+   String sql = "SELECT page_number, date, substr(content,1,30) as preview FROM journal_entries ORDER BY page_number ASC";
 
     try (Connection conn = connect();
          Statement stmt = conn.createStatement();
@@ -111,11 +111,10 @@ public static List<String> getAllJournalPages() {
         while (rs.next()) {
             int page = rs.getInt("page");
             String date = rs.getString("date");
-            String content = rs.getString("content");
+            String preview = rs.getString("preview");
 
             // Format for list view
-            pages.add("Page " + page + ": " + date + " — " +
-                      (content.length() > 20 ? content.substring(0, 20) + "..." : content));
+            pages.add("Page " + page + ": " + date + " — " + (preview == null ? "" : preview));
         }
 
     } catch (SQLException e) {
@@ -127,7 +126,8 @@ public static List<String> getAllJournalPages() {
 // 🔹 Search journal pages by keyword
 public static List<String> searchJournalPages(String keyword) {
     List<String> results = new ArrayList<>();
-    String sql = "SELECT page, date, content FROM journal WHERE content LIKE ? OR date LIKE ? ORDER BY page ASC";
+    String sql = "SELECT page_number, date, substr(content,1,30) as preview FROM journal_entries " +
+                     "WHERE content LIKE ? OR date LIKE ? ORDER BY page_number ASC";
 
     try (Connection conn = connect();
          PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -136,16 +136,16 @@ public static List<String> searchJournalPages(String keyword) {
         pstmt.setString(1, like);
         pstmt.setString(2, like);
 
-        ResultSet rs = pstmt.executeQuery();
+        try(ResultSet rs = pstmt.executeQuery()) {
 
         while (rs.next()) {
             int page = rs.getInt("page");
             String date = rs.getString("date");
-            String content = rs.getString("content");
+            String preview = rs.getString("preview");
 
-            results.add("Page " + page + ": " + date + " — " +
-                        (content.length() > 20 ? content.substring(0, 20) + "..." : content));
+             results.add("Page " + page + ": " + date + " — " + (preview == null ? "" : preview));
         }
+    }
 
     } catch (SQLException e) {
         e.printStackTrace();
@@ -173,22 +173,16 @@ public static List<String> searchJournalPages(String keyword) {
 }
 
 // 🗑 Delete journal entry from DB
-public static void deleteJournalEntry(JournalEntry entry) {
-    if (entry == null) return;
+public static void deleteJournalEntry(int page) {
+    String sql = "DELETE FROM journal WHERE page = ?";
 
     try (Connection conn = connect();
-         PreparedStatement stmt = conn.prepareStatement("DELETE FROM journal WHERE page = ?")) {
-
-        stmt.setInt(1, entry.getPage());
-        stmt.executeUpdate();
-
-        System.out.println("Deleted entry: Page " + entry.getPage());
-
+         PreparedStatement pstmt = conn.prepareStatement(sql)) {
+        pstmt.setInt(1, page);
+        pstmt.executeUpdate();
     } catch (SQLException e) {
         e.printStackTrace();
     }
 }
-
-
 
 }

@@ -62,8 +62,6 @@ public class JournalDialog {
         journalArea.setWrapText(true);
         journalArea.getStyleClass().add("journal-textarea");
 
-        loadPage(pageNumber);
-
 
         // --- Bottom Section (Buttons) ---
         Button saveBtn = new Button("💾 Save");
@@ -72,7 +70,18 @@ public class JournalDialog {
         Button prevBtn = new Button("⬅ Previous Page");
         Button indexBtn = new Button("📑 Index");
 
-        saveBtn.setOnAction(e -> {
+    
+        HBox bottomBox = new HBox(15, prevBtn, nextBtn, saveBtn, indexBtn);
+        bottomBox.setAlignment(Pos.CENTER);
+        bottomBox.setPadding(new Insets(10));
+
+        BorderPane layout = new BorderPane();
+        layout.setTop(topBox);
+        layout.setCenter(journalArea);
+        layout.setBottom(bottomBox);
+        layout.getStyleClass().add("journal-dialog");
+
+         saveBtn.setOnAction(e -> {
             DatabaseManager.saveJournalEntry(pageNumber, LocalDate.now().toString(), journalArea.getText());
             showAlert("Saved", "Your entry for Page " + pageNumber + " was saved.");
         });
@@ -86,20 +95,11 @@ public class JournalDialog {
 
         indexBtn.setOnAction(e -> { showIndex();
 });
-    
-        HBox bottomBox = new HBox(15, prevBtn, nextBtn, saveBtn, indexBtn);
-        bottomBox.setAlignment(Pos.CENTER);
-        bottomBox.setPadding(new Insets(10));
-
-        BorderPane layout = new BorderPane();
-        layout.setTop(topBox);
-        layout.setCenter(journalArea);
-        layout.setBottom(bottomBox);
-        layout.getStyleClass().add("journal-dialog");
 
         Scene scene = new Scene(layout, 600, 500);
         scene.getStylesheets().add(JournalDialog.class.getResource("/styles/app.css").toExternalForm()); // <-- Add this line
         stage.setScene(scene);
+        loadPage(pageNumber);
         stage.show();
     }
      private void loadPage(int page) {
@@ -185,11 +185,8 @@ public class JournalDialog {
     viewBtn.setOnAction(e -> {
         String selected = listView.getSelectionModel().getSelectedItem();
         if (selected != null) {
-            int selectedPage = Integer.parseInt(
-                    selected.split(":")[0].replace("Page ", "").trim()
-            );
-            loadPage(selectedPage);
-            indexStage.close();
+             loadPage(parsePageFromListString(selected));
+                indexStage.close();
         } else {
             showAlert("No selection", "Please select a page to view.");
         }
@@ -198,13 +195,10 @@ public class JournalDialog {
     deleteBtn.setOnAction(e -> {
         String selected = listView.getSelectionModel().getSelectedItem();
         if (selected != null) {
-            int selectedPage = Integer.parseInt(
-                    selected.split(":")[0].replace("Page ", "").trim()
-            );
-            JournalEntry entry = DatabaseManager.getJournalEntry(pageNumber);
-            DatabaseManager.deleteJournalEntry(entry);
+            int p = parsePageFromListString(selected);
+            DatabaseManager.deleteJournalEntry(p);
             listView.getItems().remove(selected); // remove from UI
-            showAlert("Deleted", "Page " + selectedPage + " was deleted.");
+            showAlert("Deleted", "Page " + p + " was deleted.");
         } else {
             showAlert("No selection", "Please select a page to delete.");
         }
@@ -223,7 +217,15 @@ public class JournalDialog {
     indexStage.setScene(scene);
     indexStage.show();
 }
+    private int parsePageFromListString(String listStr) {
+        try {
+            return Integer.parseInt(listStr.split(":")[0].replace("Page ", "").trim());
+        } catch (Exception e) {
+            return -1; // invalid format
+        }
+    }
 
+    
 
     private static void showAlert(String title, String msg) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);

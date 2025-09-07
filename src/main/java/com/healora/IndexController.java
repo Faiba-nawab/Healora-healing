@@ -29,10 +29,28 @@ public class IndexController {
     }
 
     /** Load all entries into the list */
-    private void loadEntries() {
-        journalEntries = FXCollections.observableArrayList(DatabaseManager.getAllEntries());
-        listView.setItems(journalEntries);
-    }
+    /** Load all entries into the list */
+private void loadEntries() {
+    journalEntries = FXCollections.observableArrayList(DatabaseManager.getAllEntries());
+
+    // 🔹 Show "Page X: date - preview"
+    listView.setItems(journalEntries);
+    listView.setCellFactory(param -> new ListCell<JournalEntry>() {
+        @Override
+        protected void updateItem(JournalEntry entry, boolean empty) {
+            super.updateItem(entry, empty);
+            if (empty || entry == null) {
+                setText(null);
+            } else {
+                String preview = entry.getContent().length() > 20
+                        ? entry.getContent().substring(0, 20) + "..."
+                        : entry.getContent();
+                setText("Page " + entry.getPage() + " (" + entry.getDate() + ") - " + preview);
+            }
+        }
+    });
+}
+
 
     /** Search entries by keyword */
     private void searchEntries() {
@@ -63,8 +81,8 @@ public class IndexController {
     private void handleDelete() {
         JournalEntry selected = listView.getSelectionModel().getSelectedItem();
         if (selected != null) {
-            DatabaseManager.deleteJournalEntry(selected);
-            loadEntries();
+            DatabaseManager.deleteJournalEntry(selected.getPage());
+            listView.getItems().remove(selected);
             showAlert("Deleted", "Entry deleted successfully.");
         } else {
             showAlert("No Selection", "Please select an entry to delete.");

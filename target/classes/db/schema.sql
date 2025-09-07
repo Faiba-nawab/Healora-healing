@@ -22,5 +22,11 @@ CREATE TABLE IF NOT EXISTS activity_runs (
   activity_id INTEGER,
   started_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   completed_at TIMESTAMP,
-  FOREIGN KEY(activity_id) REFERENCES healing_activities(activity_id)
+  FOREIGN  KEY(activity_id) REFERENCES healing_activities(activity_id)
+);
+
+CREATE TABLE IF NOT EXISTS journal (
+    page INTEGER PRIMARY KEY,
+    date TEXT,
+    content TEXT
 );

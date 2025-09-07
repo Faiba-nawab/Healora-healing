@@ -99,15 +99,60 @@ public class DatabaseManager {
         throw new UnsupportedOperationException("Unimplemented method 'get'");
     }
 
-    public static List<String> getAllJournalPages() {
-        
-        throw new UnsupportedOperationException("Unimplemented method 'getAllJournalPages'");
-    }
+    // 🔹 Return all journal pages as "Page X: yyyy-mm-dd"
+public static List<String> getAllJournalPages() {
+    List<String> pages = new ArrayList<>();
+    String sql = "SELECT page, date, content FROM journal ORDER BY page ASC";
 
-    public static List<String> searchJournalPages(String newVal) {
-        
-        throw new UnsupportedOperationException("Unimplemented method 'searchJournalPages'");
+    try (Connection conn = connect();
+         Statement stmt = conn.createStatement();
+         ResultSet rs = stmt.executeQuery(sql)) {
+
+        while (rs.next()) {
+            int page = rs.getInt("page");
+            String date = rs.getString("date");
+            String content = rs.getString("content");
+
+            // Format for list view
+            pages.add("Page " + page + ": " + date + " — " +
+                      (content.length() > 20 ? content.substring(0, 20) + "..." : content));
+        }
+
+    } catch (SQLException e) {
+        e.printStackTrace();
     }
+    return pages;
+}
+
+// 🔹 Search journal pages by keyword
+public static List<String> searchJournalPages(String keyword) {
+    List<String> results = new ArrayList<>();
+    String sql = "SELECT page, date, content FROM journal WHERE content LIKE ? OR date LIKE ? ORDER BY page ASC";
+
+    try (Connection conn = connect();
+         PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+        String like = "%" + keyword + "%";
+        pstmt.setString(1, like);
+        pstmt.setString(2, like);
+
+        ResultSet rs = pstmt.executeQuery();
+
+        while (rs.next()) {
+            int page = rs.getInt("page");
+            String date = rs.getString("date");
+            String content = rs.getString("content");
+
+            results.add("Page " + page + ": " + date + " — " +
+                        (content.length() > 20 ? content.substring(0, 20) + "..." : content));
+        }
+
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+    return results;
+}
+
 
     public static JournalEntry getJournalEntry(int pageNumber) {
     String sql = "SELECT page_number, date, content FROM journal_entries WHERE page_number=?";

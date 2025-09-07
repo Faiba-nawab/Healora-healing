@@ -21,7 +21,9 @@
 
     <!-- 📄 Center Section -->
     <center>
+        <VBox spacing="10" alignment="CENTER">
         <ListView fx:id="listView" prefHeight="350" prefWidth="450"/>
+        </VBox>
     </center>
 
     <!-- 🔘 Bottom Section -->

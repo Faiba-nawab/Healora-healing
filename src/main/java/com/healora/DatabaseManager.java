@@ -138,4 +138,16 @@ public class DatabaseManager {
     return null;
 }
 
+public static void deleteJournalEntry(int page) {
+    String sql = "DELETE FROM journal WHERE page = ?";
+    try (Connection conn = connect();
+         PreparedStatement pstmt = conn.prepareStatement(sql)) {
+        pstmt.setInt(1, page);
+        pstmt.executeUpdate();
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+}
+
+
 }

@@ -1,14 +1,11 @@
 package com.healora;
 
+import com.healora.DatabaseManager;
 import com.healora.DatabaseManager.JournalEntry;
-
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.Region;
 
 public class IndexController {
@@ -31,12 +28,25 @@ public class IndexController {
     public void initialize() {
         loadEntries();
 
-        // When search field changes
+        // Search field listener
         searchField.textProperty().addListener((obs, oldVal, newVal) -> searchEntries());
 
-        // Wire buttons
+        // Buttons
         viewButton.setOnAction(e -> handleView());
         deleteButton.setOnAction(e -> handleDelete());
+
+        // ListView display (page + date)
+        listView.setCellFactory(param -> new ListCell<>() {
+            @Override
+            protected void updateItem(JournalEntry entry, boolean empty) {
+                super.updateItem(entry, empty);
+                if (empty || entry == null) {
+                    setText(null);
+                } else {
+                    setText("📖 Page " + entry.getPage() + " — " + entry.getDate());
+                }
+            }
+        });
     }
 
     /** Load all entries into the list */
@@ -47,7 +57,7 @@ public class IndexController {
 
     /** Search entries by keyword */
     private void searchEntries() {
-        String keyword = searchField.getText().trim(); // ✅ must be String
+        String keyword = searchField.getText().trim();
         if (keyword.isEmpty()) {
             loadEntries();
         } else {
@@ -63,7 +73,7 @@ public class IndexController {
     }
 
     private void handleView() {
-        DatabaseManager.JournalEntry selected = listView.getSelectionModel().getSelectedItem();
+        JournalEntry selected = listView.getSelectionModel().getSelectedItem();
         if (selected != null) {
             showEntryDialog(selected);
         } else {
@@ -71,12 +81,11 @@ public class IndexController {
         }
     }
 
-    
     private void handleDelete() {
-        DatabaseManager.JournalEntry selected = listView.getSelectionModel().getSelectedItem();
+        JournalEntry selected = listView.getSelectionModel().getSelectedItem();
         if (selected != null) {
             listView.getItems().remove(selected);
-            DatabaseManager.deleteJournalEntry(selected); // Remove from DB
+            DatabaseManager.deleteJournalEntry(selected);
             showAlert("Deleted", "Entry deleted successfully.");
         } else {
             showAlert("No Selection", "Please select an entry to delete.");
@@ -84,7 +93,7 @@ public class IndexController {
     }
 
     /** Show full entry in dialog */
-    public static void showEntryDialog(DatabaseManager.JournalEntry entry) {
+    private void showEntryDialog(JournalEntry entry) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Journal Entry");
         alert.setHeaderText("📖 Page " + entry.getPage() + " (" + entry.getDate() + ")");

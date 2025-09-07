@@ -27,15 +27,15 @@ import javafx.scene.layout.Pane;
 
 import java.time.LocalDate;
 import java.util.List;
+import javafx.scene.Node;
 
 public class JournalDialog {
-
+    
     private int pageNumber ;  // current page
-    private static Label pageLabel;
-    private static TextArea journalArea;
-    private BorderPane rootPane;
+    private Label pageLabel;
+    private TextArea journalArea;
 
-     public JournalDialog(int startPage) {
+    public JournalDialog(int startPage) {
         this.pageNumber = startPage > 0 ? startPage : 1;
         createAndShowDialog();
     }
@@ -72,19 +72,6 @@ public class JournalDialog {
         Button prevBtn = new Button("⬅ Previous Page");
         Button indexBtn = new Button("📑 Index");
 
-         HBox bottomBox = new HBox(15, prevBtn, nextBtn, saveBtn, indexBtn);
-        bottomBox.setAlignment(Pos.CENTER);
-        bottomBox.setPadding(new Insets(10));
-
-        // --- Root Layout ---
-        rootPane = new BorderPane();
-        rootPane.getStyleClass().add("journal-dialog");
-        rootPane.setTop(topBox);
-        rootPane.setCenter(journalArea);
-        rootPane.setBottom(bottomBox);
-
-        loadPage(pageNumber);
-
         saveBtn.setOnAction(e -> {
             DatabaseManager.saveJournalEntry(pageNumber, LocalDate.now().toString(), journalArea.getText());
             showAlert("Saved", "Your entry for Page " + pageNumber + " was saved.");
@@ -94,15 +81,23 @@ public class JournalDialog {
 
         prevBtn.setOnAction(e -> {
             if (pageNumber > 1) loadPage(pageNumber - 1);
-            animatePageFlip((Pane) stage.getScene().getRoot());
             
         });
 
         indexBtn.setOnAction(e -> { showIndex();
 });
+    
+        HBox bottomBox = new HBox(15, prevBtn, nextBtn, saveBtn, indexBtn);
+        bottomBox.setAlignment(Pos.CENTER);
+        bottomBox.setPadding(new Insets(10));
 
+        BorderPane layout = new BorderPane();
+        layout.setTop(topBox);
+        layout.setCenter(journalArea);
+        layout.setBottom(bottomBox);
+        layout.getStyleClass().add("journal-dialog");
 
-        Scene scene = new Scene(rootPane, 600, 500);
+        Scene scene = new Scene(layout, 600, 500);
         scene.getStylesheets().add(JournalDialog.class.getResource("/styles/app.css").toExternalForm()); // <-- Add this line
         stage.setScene(scene);
         stage.show();
@@ -112,17 +107,20 @@ public class JournalDialog {
         pageLabel.setText("Page " + pageNumber);
         JournalEntry entry = DatabaseManager.getJournalEntry(pageNumber);
         journalArea.setText(entry != null ? entry.getContent() : "");
-        animatePageFlip(rootPane);
+        animatePageFlip(journalArea);
         }
-    private void animatePageFlip(Pane pageRoot) {
+    private void animatePageFlip(Node pageRoot) {
+        if (pageRoot == null) return;
+    
     pageRoot.setEffect(new DropShadow(10, Color.gray(0, 0.5)));
-    RotateTransition rotate = new RotateTransition(Duration.millis(350), pageRoot);
+
+    RotateTransition rotate = new RotateTransition(Duration.millis(200), pageRoot);
     rotate.setAxis(javafx.scene.transform.Rotate.Y_AXIS); // Y-axis flip
     rotate.setFromAngle(0);
     rotate.setToAngle(180);
     rotate.setInterpolator(javafx.animation.Interpolator.EASE_BOTH);
 
-    ScaleTransition scale = new ScaleTransition(Duration.millis(350), pageRoot);
+    ScaleTransition scale = new ScaleTransition(Duration.millis(200), pageRoot);
     scale.setFromX(1.0);
     scale.setToX(0.95);
     scale.setAutoReverse(true);
@@ -179,6 +177,40 @@ public class JournalDialog {
             }
         }
     });
+
+     // --- Buttons (View / Delete) ---
+    Button viewBtn = new Button("👁 View");
+    Button deleteBtn = new Button("🗑 Delete");
+
+    viewBtn.setOnAction(e -> {
+        String selected = listView.getSelectionModel().getSelectedItem();
+        if (selected != null) {
+            int selectedPage = Integer.parseInt(
+                    selected.split(":")[0].replace("Page ", "").trim()
+            );
+            loadPage(selectedPage);
+            indexStage.close();
+        } else {
+            showAlert("No selection", "Please select a page to view.");
+        }
+    });
+
+    deleteBtn.setOnAction(e -> {
+        String selected = listView.getSelectionModel().getSelectedItem();
+        if (selected != null) {
+            int selectedPage = Integer.parseInt(
+                    selected.split(":")[0].replace("Page ", "").trim()
+            );
+            DatabaseManager.deleteJournalEntry(selectedPage);
+            listView.getItems().remove(selected); // remove from UI
+            showAlert("Deleted", "Page " + selectedPage + " was deleted.");
+        } else {
+            showAlert("No selection", "Please select a page to delete.");
+        }
+    });
+
+    HBox buttonBox = new HBox(15, viewBtn, deleteBtn);
+    buttonBox.setAlignment(Pos.CENTER);
 
     VBox box = new VBox(15, header, searchField, listView);
     box.setPadding(new Insets(15));

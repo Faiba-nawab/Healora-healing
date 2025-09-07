@@ -3,7 +3,6 @@ com\healora\activities\SuggestionService.class
 com\healora\Main.class
 com\healora\ui\Sidebar.class
 com\healora\activities\HealingActivity.class
-com\healora\IndexController$1.class
 com\healora\ui\ActivityCard.class
 com\healora\ui\ActivityRunner.class
 com\healora\ui\BreathingDialog.class

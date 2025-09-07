@@ -10,17 +10,13 @@ import javafx.scene.layout.Region;
 
 public class IndexController {
 
-    @FXML
-    private ListView<JournalEntry> listView;
+    @FXML private ListView<JournalEntry> listView;
 
-    @FXML
-    private TextField searchField;
+    @FXML private TextField searchField;
 
-    @FXML
-    private Button viewButton;
+    @FXML private Button viewButton;
 
-    @FXML
-    private Button deleteButton;
+    @FXML private Button deleteButton;
 
     private ObservableList<JournalEntry> journalEntries;
 
@@ -30,23 +26,6 @@ public class IndexController {
 
         // Search field listener
         searchField.textProperty().addListener((obs, oldVal, newVal) -> searchEntries());
-
-        // Buttons
-        viewButton.setOnAction(e -> handleView());
-        deleteButton.setOnAction(e -> handleDelete());
-
-        // ListView display (page + date)
-        listView.setCellFactory(param -> new ListCell<>() {
-            @Override
-            protected void updateItem(JournalEntry entry, boolean empty) {
-                super.updateItem(entry, empty);
-                if (empty || entry == null) {
-                    setText(null);
-                } else {
-                    setText("📖 Page " + entry.getPage() + " — " + entry.getDate());
-                }
-            }
-        });
     }
 
     /** Load all entries into the list */
@@ -71,7 +50,7 @@ public class IndexController {
             listView.setItems(results);
         }
     }
-
+    @FXML
     private void handleView() {
         JournalEntry selected = listView.getSelectionModel().getSelectedItem();
         if (selected != null) {
@@ -80,7 +59,7 @@ public class IndexController {
             showAlert("No Selection", "Please select an entry to view.");
         }
     }
-
+    @FXML
     private void handleDelete() {
         JournalEntry selected = listView.getSelectionModel().getSelectedItem();
         if (selected != null) {
@@ -98,7 +77,6 @@ public class IndexController {
         alert.setTitle("Journal Entry");
         alert.setHeaderText("📖 Page " + entry.getPage() + " (" + entry.getDate() + ")");
         alert.setContentText(entry.getContent());
-        alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
         alert.showAndWait();
     }
 

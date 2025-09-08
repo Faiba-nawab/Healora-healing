@@ -1,5 +1,7 @@
 package com.healora;
 
+import java.util.List;
+
 import com.healora.DatabaseManager;
 import com.healora.DatabaseManager.JournalEntry;
 import javafx.collections.FXCollections;
@@ -71,33 +73,60 @@ private void loadEntries() {
     @FXML
     private void handleView() {
         JournalEntry selected = listView.getSelectionModel().getSelectedItem();
-        if (selected != null) {
-            showEntryDialog(selected);
-        } else {
-            showAlert("No Selection", "Please select an entry to view.");
+        if (selected == null) {
+            showAlert("No Selection", "Please select a journal entry to view.");
+            return;
         }
+
+        int pageNumber = extractPageNumber(selected);
+        String content = DatabaseManager.getJournalContent(pageNumber);
+
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Journal Entry");
+        alert.setHeaderText("📖 Page " + pageNumber);
+        alert.setContentText(content);
+        alert.showAndWait();
     }
     @FXML
     private void handleDelete() {
         JournalEntry selected = listView.getSelectionModel().getSelectedItem();
-        if (selected != null) {
-            DatabaseManager.deleteJournalEntry(selected.getPage());
-            listView.getItems().remove(selected);
-            showAlert("Deleted", "Entry deleted successfully.");
-        } else {
-            showAlert("No Selection", "Please select an entry to delete.");
+        if (selected == null) {
+            showAlert("No Selection", "Please select a journal entry to delete.");
+            return;
+        }
+
+        int pageNumber = extractPageNumber(selected);
+
+        Alert confirm = new Alert(Alert.AlertType.CONFIRMATION,
+                "Are you sure you want to delete Page " + pageNumber + "?",
+                ButtonType.YES, ButtonType.NO);
+        confirm.setTitle("Confirm Delete");
+        confirm.showAndWait();
+
+        if (confirm.getResult() == ButtonType.YES) {
+            DatabaseManager.deleteJournalEntry(pageNumber);
+            refreshList();
         }
     }
 
-    /** Show full entry in dialog */
-    private void showEntryDialog(JournalEntry entry) {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Journal Entry");
-        alert.setHeaderText("📖 Page " + entry.getPage() + " (" + entry.getDate() + ")");
-        alert.setContentText(entry.getContent());
-        alert.showAndWait();
+    // 🔄 Refresh list after delete
+private void refreshList() {
+        List<JournalEntry> entries = DatabaseManager.getAllEntries();
+        journalEntries.setAll(entries);
+        listView.setItems(journalEntries);
     }
 
+
+    // Helper → Extract page number from "Page X: ..."
+    private int extractPageNumber(JournalEntry selected) {
+        try {
+            String[] parts = (String[]) ((JournalEntry) selected.split(":")[0]).split(" ");
+            return Integer.parseInt(parts[1]);
+        } catch (Exception e) {
+            return -1;
+        }
+    }
+    
     /** Generic alert */
     private void showAlert(String title, String msg) {
         Alert alert = new Alert(Alert.AlertType.WARNING);

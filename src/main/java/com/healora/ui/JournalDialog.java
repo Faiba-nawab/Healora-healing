@@ -20,6 +20,8 @@ import javafx.stage.Stage;
 import javafx.animation.ParallelTransition;
 import javafx.animation.RotateTransition;
 import javafx.animation.ScaleTransition;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.util.Duration;
@@ -153,8 +155,8 @@ public class JournalDialog {
     listView.getStyleClass().add("index-list");
 
     // Load all pages
-    List<String> allPages = DatabaseManager.getAllJournalPages();
-    listView.getItems().setAll(allPages);
+    ObservableList<String> allPages = FXCollections.observableArrayList(DatabaseManager.getAllJournalPages());
+    listView.setItems(allPages);
 
     // Filter results when typing
     searchField.textProperty().addListener((obs, oldVal, newVal) -> {
@@ -162,7 +164,7 @@ public class JournalDialog {
             listView.getItems().setAll(allPages);
         } else {
             List<String> filtered = DatabaseManager.searchJournalPages(newVal);
-            listView.getItems().setAll(filtered);
+            listView.setItems(FXCollections.observableArrayList(filtered));
         }
     });
 
@@ -171,9 +173,9 @@ public class JournalDialog {
         if (event.getClickCount() == 2) {
             String selected = listView.getSelectionModel().getSelectedItem();
             if (selected != null) {
-                int selectedPage = Integer.parseInt(selected.split(":")[0].replace("Page ", "").trim());
-                loadPage(selectedPage);
-                indexStage.close();
+                String content = DatabaseManager.getJournalContent(selected);
+        // Show content in a TextArea or new window
+        System.out.println(content);
             }
         }
     });

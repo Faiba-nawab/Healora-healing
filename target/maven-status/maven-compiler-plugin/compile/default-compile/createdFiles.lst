@@ -14,7 +14,6 @@ com\healora\activities\QuoteDAO.class
 com\healora\IndexController.class
 com\healora\Seeder.class
 com\healora\ui\SimpleTimerDialog.class
-com\healora\ui\StretchingDialog.class
 com\healora\DatabaseManager.class
 com\healora\ui\ActivityRunner$1.class
 com\healora\activities\MoodStatsProvider.class

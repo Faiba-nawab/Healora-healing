@@ -4,12 +4,12 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.geometry.*?>
 
-<BorderPane xmlns:fx="http://javafx.com/fxml"
+<VBox xmlns:fx="http://javafx.com/fxml"
             fx:controller="com.healora.IndexController"
             style="-fx-padding: 15; -fx-background-color: #fdfaf6;">
 
     <!-- 🔝 Top Section -->
-    <top>
+    
         <VBox spacing="10" alignment="CENTER">
             <Label text="📖 Your Journal Pages"
                    style="-fx-font-family: 'Comic Sans MS'; -fx-font-size: 20; -fx-text-fill: #5d4037;"/>
@@ -17,26 +17,26 @@
                        onKeyReleased="#searchEntries"
                        style="-fx-background-radius: 8; -fx-padding: 6;"/>
         </VBox>
-    </top>
+    
 
     <!-- 📄 Center Section -->
-    <center>
+    
         <VBox spacing="10" alignment="CENTER">
         <ListView fx:id="listView" prefHeight="350" prefWidth="450"/>
         </VBox>
-    </center>
+    
 
     <!-- 🔘 Bottom Section -->
-    <bottom>
+    
         <HBox spacing="15" alignment="CENTER" style="-fx-padding: 10;">
-            <Button fx:id="viewButton" text="👁 View Entry"
+            <Button fx:id="viewButton" text="👁 View"
                     onAction="#handleView"
                     style="-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 10; -fx-padding: 8 20;"/>
 
-            <Button fx:id="deleteButton" text="🗑 Delete Entry"
+            <Button fx:id="deleteButton" text="🗑 Delete"
                     onAction="#handleDelete"
                     style="-fx-background-color: #f44336; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 10; -fx-padding: 8 20;"/>
         </HBox>
-    </bottom>
+    
 
-</BorderPane>
+</VBox>

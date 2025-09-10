@@ -34,10 +34,10 @@ public class BreathingDialog extends Stage {
         VBox root = new VBox(20);
         root.setPadding(new Insets(30));
         root.setAlignment(Pos.CENTER);
-        root.setStyle("-fx-background-color:\"#efe1cdff\"; -fx-background-radius: 20;");
+        root.setStyle("-fx-background-color: linear-gradient(to bottom right, #fce4ec, #e1bee7); -fx-background-radius: 20;");
 
         // Title
-        Text title = new Text("Calm Breathing");
+        Text title = new Text("Calm Breathing 🌸");
         title.getStyleClass().add("dialog-title");
 
         // Instruction ("Inhale / Exhale")
@@ -45,8 +45,8 @@ public class BreathingDialog extends Stage {
         instruction.getStyleClass().add("dialog-instruction");
 
         // Circle animation
-        circle = new Circle(90, Color.web("#e4c9a3ff", 0.8));
-        circle.setStroke(Color.web("#4b6c40ff"));
+        circle = new Circle(90, Color.web("#f8bbd0", 0.8));
+        circle.setStroke(Color.web("#8e24aa"));
         circle.setStrokeWidth(4);
 
         StackPane breathingCircle = new StackPane(circle, instruction);
@@ -153,7 +153,7 @@ Button settingsBtn = new Button(" Settings", gearIcon);
     VBox box = new VBox(20);
     box.setPadding(new Insets(25));
     box.setAlignment(Pos.CENTER);
-    box.setStyle("-fx-background-color: linear-gradient(to bottom right, #ffecd2, #ec9c81ff);"
+    box.setStyle("-fx-background-color: linear-gradient(to bottom right, #ffecd2, #eeab94ff);"
                + "-fx-background-radius: 20;"
                + "-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 15,0,0,5);");
 

@@ -89,6 +89,20 @@ public class DatabaseManager {
         return entries;
     }
 
+        /** Insert a new journal entry */
+    public static void addJournalEntry(int page, String date, String content) {
+        String sql = "INSERT OR REPLACE INTO journal (page, date, content) VALUES (?, ?, ?)";
+        try (Connection conn = connect(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setInt(1, page);
+            pstmt.setString(2, date);
+            pstmt.setString(3, content);
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+
     // Get single entry
     public static JournalEntry getJournalEntry(int pageNumber) {
         String sql = "SELECT page_number, date, content FROM journal_entries WHERE page_number=?";

@@ -182,7 +182,11 @@ public class JournalDialog {
 
      // --- Buttons (View / Delete) ---
     Button viewBtn = new Button("👁 View");
+    viewBtn.setStyle("-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 10; -fx-padding: 8 20;");
+
     Button deleteBtn = new Button("🗑 Delete");
+    deleteBtn.setStyle("-fx-background-color: #f44336; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 10; -fx-padding: 8 20;");
+
 
     viewBtn.setOnAction(e -> {
         String selected = listView.getSelectionModel().getSelectedItem();
@@ -209,7 +213,7 @@ public class JournalDialog {
     HBox buttonBox = new HBox(15, viewBtn, deleteBtn);
     buttonBox.setAlignment(Pos.CENTER);
 
-    VBox box = new VBox(15, header, searchField, listView);
+    VBox box = new VBox(15, header, searchField, listView, buttonBox);
     box.setPadding(new Insets(15));
     box.setAlignment(Pos.CENTER);
     box.getStyleClass().add("index-container");

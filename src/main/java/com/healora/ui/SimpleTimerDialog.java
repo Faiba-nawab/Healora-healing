@@ -36,6 +36,28 @@ public class SimpleTimerDialog {
         dialog.initOwner(parentStage);
         dialog.initModality(Modality.APPLICATION_MODAL);
         dialog.setTitle("Healing Timer");
+        
+        // --- Stretching Instructions Heading ---
+        Label heading = new Label("🌿 Quick Stretch");
+        heading.setFont(Font.font("Harrington", 28));   // Elegant font for heading
+        heading.setTextFill(Color.web("#9f712bff"));      // Warm orange-gold
+        heading.setAlignment(Pos.CENTER);
+        // --- Stretching Instructions ---
+        Label instruction = new Label(
+                        "1. Stand up and roll your shoulders.\n" +
+                        "2. Stretch arms overhead and breathe deeply.\n" +
+                        "3. Touch your toes slowly, hold for 10 seconds.\n" +
+                        "4. Roll your neck gently side to side.\n\n" +
+                        "✨ Repeat twice for relaxation!"
+        );
+        instruction.setWrapText(true);
+        instruction.setFont(Font.font( "Lucida Handwriting", 14));  // Stylish cursive font
+        instruction.setTextFill(Color.web("#5c2d2dff"));      
+        instruction.setAlignment(Pos.CENTER);
+        instruction.setMaxWidth(460);
+
+        
+
 
         // --- Timer Label (Digital Clock Style) ---
         try {
@@ -64,24 +86,27 @@ public class SimpleTimerDialog {
         buttonBox.setAlignment(Pos.CENTER);
 
         // --- Layout ---
-        VBox vbox = new VBox(20, timerLabel, buttonBox);
+        VBox vbox = new VBox(20, heading, instruction, timerLabel, buttonBox);
         vbox.setPadding(new Insets(30));
         vbox.setAlignment(Pos.CENTER);
 
         BorderPane root = new BorderPane(vbox);
-        root.setStyle("-fx-background-radius: 20; -fx-border-radius: 20;");
+        root.setStyle("-fx-background-radius: 20; -fx-border-radius: 20; -fx-background-color: linear-gradient(to bottom right, #fff3e0, #f9d79bff, #fcc0adff); -fx-border-color: #a27c42ff ; -fx-border-width: 3"); // Gold border
 
-        // Gradient Background
+        // Gradient Background (soft & matching)
         root.setBackground(new javafx.scene.layout.Background(
-                new javafx.scene.layout.BackgroundFill(
-                        new LinearGradient(0, 0, 1, 1, true, CycleMethod.NO_CYCLE,
-                                new Stop(0, Color.web("#6a11cb")),
-                                new Stop(1, Color.web("#2575fc"))
-                        ),
-                        new CornerRadii(20), Insets.EMPTY
-                )));
+    new javafx.scene.layout.BackgroundFill(
+            new LinearGradient(0, 0, 1, 1, true, CycleMethod.NO_CYCLE,
+                   new Stop(0, Color.web("#fceabb")),   // pastel yellow
+                    new Stop(0.5, Color.web("#f8b500")), // warm golden
+                    new Stop(1, Color.web("#f6d365"))    // peach
+            ),
+            new CornerRadii(20), Insets.EMPTY
+    )));
 
-        Scene scene = new Scene(root, 400, 250);
+
+
+        Scene scene = new Scene(root, 400, 500);
         dialog.setScene(scene);
         dialog.show();
     }

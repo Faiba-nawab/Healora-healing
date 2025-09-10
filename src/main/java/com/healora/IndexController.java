@@ -78,13 +78,11 @@ private void loadEntries() {
             return;
         }
 
-        int pageNumber = extractPageNumber(selected);
-        String content = DatabaseManager.getJournalContent(pageNumber);
-
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Journal Entry");
-        alert.setHeaderText("📖 Page " + pageNumber);
-        alert.setContentText(content);
+        alert.setHeaderText("📖 Page " + selected.getPage());
+        alert.setContentText(selected.getContent());
+        alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
         alert.showAndWait();
     }
     @FXML
@@ -95,37 +93,19 @@ private void loadEntries() {
             return;
         }
 
-        int pageNumber = extractPageNumber(selected);
-
         Alert confirm = new Alert(Alert.AlertType.CONFIRMATION,
-                "Are you sure you want to delete Page " + pageNumber + "?",
+                "Are you sure you want to delete Page " + selected.getPage() + "?",
                 ButtonType.YES, ButtonType.NO);
         confirm.setTitle("Confirm Delete");
         confirm.showAndWait();
 
         if (confirm.getResult() == ButtonType.YES) {
-            DatabaseManager.deleteJournalEntry(pageNumber);
-            refreshList();
+            DatabaseManager.deleteJournalEntry(selected.getPage());
+            loadEntries();
         }
     }
 
-    // 🔄 Refresh list after delete
-private void refreshList() {
-        List<JournalEntry> entries = DatabaseManager.getAllEntries();
-        journalEntries.setAll(entries);
-        listView.setItems(journalEntries);
-    }
 
-
-    // Helper → Extract page number from "Page X: ..."
-    private int extractPageNumber(JournalEntry selected) {
-        try {
-            String[] parts = (String[]) ((JournalEntry) selected.split(":")[0]).split(" ");
-            return Integer.parseInt(parts[1]);
-        } catch (Exception e) {
-            return -1;
-        }
-    }
     
     /** Generic alert */
     private void showAlert(String title, String msg) {

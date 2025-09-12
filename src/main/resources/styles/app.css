@@ -1,7 +1,7 @@
 /* Background gradient on the root */
 .root {
-  font-family: "Inter", "Segoe UI", Arial, sans-serif;
-  -fx-font-family: "Inter", "Segoe UI", Arial, sans-serif;
+  font-family: "Inter", "Segoe UI Emoji", "Noto Color Emoji", "Arial Unicode MS", sans-serif;
+  -fx-font-family: "Inter", "Segoe UI Emoji", "Noto Color Emoji","Arial Unicode MS", sans-serif;
   background-color: #1a2a6c;
   -fx-background-color: linear-gradient(to bottom right, #1a2a6c, #b21f1f, #fdbb2d);
 }
@@ -61,12 +61,14 @@
 }
 /* Section title */
 .section-title {
-  fill: white;
-  -fx-fill: white;
-  font-size: 22px;
-  -fx-font-size: 22px;
-  font-weight: 800;
-  -fx-font-weight: 800;
+  color: white;
+  -fx-text-fill: white;
+  font-size: 28px;
+  -fx-font-size: 28px;
+  font-weight: bolder;
+  -fx-font-weight: bolder;
+  font-family:"Lucida Handwriting", "Segoe Script", cursive;
+  -fx-font-family: "Lucida Handwriting", "Segoe Script", cursive;
 }
 /* Card (glass) */
 .card {
@@ -85,15 +87,15 @@
 .card-emoji {
   fill: white;
   -fx-fill: white;
-  font-size: 32px;
+  font-size: 28px;
   -fx-font-size: 28px;
 }
 
 .card-title {
   fill: white;
   -fx-fill: white;
-  font-size: 24px;
-  -fx-font-size: 24px;
+  font-size: 22px;
+  -fx-font-size: 22px;
   font-family: Georgia, 'Times New Roman', Times, serif;
   -fx-font-family: Georgia, 'Times New Roman', Times, serif;
   font-style: italic;
@@ -105,8 +107,8 @@
 .card-desc {
   fill: rgba(255,255,255,0.9);
   -fx-fill: rgba(255,255,255,0.9);
-  font-size: 13px;
-  -fx-font-size: 13px;
+  font-size: 16px;
+  -fx-font-size: 16px;
 }
 
 /* Buttons */
@@ -115,12 +117,20 @@
   -fx-background-color: linear-gradient(to right, #36d1dc, #5b86e5);
   color: white;
   -fx-text-fill: white;
-  font-weight: 800;
-  -fx-font-weight: 800;
+  font-size: 18px;
+  -fx-font-size:18px;
+  font-weight: 500;
+  -fx-font-weight: 500;
   border-radius: 12px;
   -fx-background-radius: 12;
-  padding: 8px 16px 8px 16px;
-  -fx-padding: 8 16 8 16;
+  padding: 6px 12px 6px 12px;
+  -fx-padding: 4 8 4 8;
+  min-width: 0;
+   -fx-min-width: 0;  
+  min-height: 0;          /* allow shrinking */
+  -fx-min-height: 0;
+  -fx-pref-height: 36px;       /* desired height */
+  -fx-pref-width: 79px;    
 }
 .primary-btn:hover {
   background-color: linear-gradient(to right, #5b86e5, #36d1dc);
@@ -133,6 +143,56 @@
 
 .activity-btn .ikonli-font-icon {
     -fx-icon-size: 16px;
+}
+
+.titled-pane > .title {
+  background-color:transparent;
+    -fx-background-color:transparent ;
+    -fx-background-radius: 18 18 0 0;             /* rounded top corners */
+    -fx-text-fill: white;
+    font-weight: bold;
+    -fx-font-weight: bold;
+    font-size: 18px;
+    -fx-font-size: 18px;
+}
+
+.titled-pane > .content {
+     background-color: transparent;
+    -fx-background-color:transparent;
+}
+
+.scroll-pane .viewport {
+  background-color: transparent;
+    -fx-background-color: transparent;
+}
+
+.scroll-pane .scroll-bar:vertical {
+  background-color: transparent;
+    -fx-background-color: transparent;
+}
+
+.scroll-pane .scroll-bar:vertical .thumb {
+    background-color:  rgba(255,255,255,0.3); 
+    -fx-background-color: rgba(255,255,255,0.3); /* semi-transparent */
+    -fx-background-radius: 8;
+}
+/* Horizontal scrollbar (if needed) */
+.scroll-pane .scroll-bar:horizontal {
+  background-color: transparent;
+    -fx-background-color: transparent;
+}
+
+.scroll-pane .scroll-bar:horizontal .thumb {
+    background-color:  rgba(255,255,255,0.3); 
+    -fx-background-color: rgba(255,255,255,0.3); /* semi-transparent */
+    -fx-background-radius: 8;
+}
+
+.activity-label {
+   font-size: 16px;
+    -fx-font-size: 16px;
+    font-family: "Segoe UI Emoji", "Noto Color Emoji", "Arial Unicode MS", sans-serif;
+    -fx-font-family: "Segoe UI Emoji", "Noto Color Emoji", "Arial Unicode MS", sans-serif;
 }
 
 

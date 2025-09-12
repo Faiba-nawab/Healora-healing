@@ -19,7 +19,10 @@ com\healora\ui\ActivityRunner$1.class
 com\healora\activities\MoodStatsProvider.class
 com\healora\activities\MoodType.class
 com\healora\ui\JournalDialog.class
+com\healora\ui\MoodPane$MoodSelectionListener.class
 com\healora\DatabaseManager$JournalEntry.class
 com\healora\ui\AppStageProvider.class
+com\healora\ui\MoodPane.class
 com\healora\ui\MusicLauncher.class
+com\healora\data\ActivityContent.class
 com\healora\activities\HealingActivityDAO.class

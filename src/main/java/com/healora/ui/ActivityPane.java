@@ -1,25 +1,45 @@
 package com.healora.ui;
 
+import com.healora.DatabaseManager;
 import javafx.geometry.Insets;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TitledPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
+
+import java.util.List;
+
 import org.kordamp.ikonli.javafx.FontIcon;
+
+import com.healora.data.ActivityContent;
 
 public class ActivityPane extends VBox {
 
-    public ActivityPane() {
+     public ActivityPane() {
+        this(DatabaseManager.getRecentMood()); // delegates to main constructor
+    }
+    public ActivityPane(String mood) {
         getStyleClass().add("content-area");
         setSpacing(18);
         setPadding(new Insets(24));
 
-        Text heading = new Text("Recommended Activities");
-        heading.getStyleClass().add("section-title");
+         // Scrollable container
+        ScrollPane scrollPane = new ScrollPane();
+        scrollPane.setFitToWidth(true);
+        scrollPane.setStyle("-fx-background: transparent; -fx-background-color: transparent;");
+
+
+        VBox container = new VBox(24);
+        container.setPadding(new Insets(0));
+
 
         // Grid of activity cards
-        GridPane grid = new GridPane();
-        grid.setHgap(18);
-        grid.setVgap(18);
+        GridPane coreGrid = new GridPane();
+        coreGrid.setHgap(18);
+        coreGrid.setVgap(18);
+
+        int col = 0, row = 0;
 
         // 4 sample cards -> hook to your existing dialogs
         
@@ -38,12 +58,80 @@ public class ActivityPane extends VBox {
 
         ActivityCard c4 = new ActivityCard("Mindful Break", "Step away for 5 minutes. Breathe. Reset.", "Begin 5m", "⏲️");
         c4.setOnStart(() -> new SimpleTimerDialog(5).show(AppStageProvider.primary()));
+        
+        // Add core activities to grid
+        ActivityCard[] coreCards = {c1, c2, c3, c4};
+        for (ActivityCard card : coreCards) {
+            coreGrid.add(card, col, row);
+            col++;
+            if (col > 1) {
+                col = 0;
+                row++;
+            }
+        }
 
-        grid.add(c1, 0, 0);
-        grid.add(c2, 1, 0);
-        grid.add(c3, 0, 1);
-        grid.add(c4, 1, 1);
+        // Wrap core grid in VBox with glass-card style
+        VBox coreBox = new VBox(coreGrid);
+        coreBox.setPadding(new Insets(16));
+        coreBox.getStyleClass().add("card"); // ← gives glass effect
 
-        getChildren().addAll(heading, grid);
+        TitledPane corePane = new TitledPane("🌟 Core Activities", coreGrid);
+        corePane.setExpanded(true); 
+        corePane.getStyleClass().add("section-title");// initially expanded
+         // --- Recommended for current mood ---
+         // Fetch activities for the mood from ActivityContent
+         // and create cards similarly to above
+
+        
+
+        GridPane recGrid = new GridPane();
+        recGrid.setHgap(18);
+        recGrid.setVgap(18);
+
+        col = 0;
+        row = 0;
+
+        List<String> activities = ActivityContent.getActivities(mood);
+        for (String activity : activities) {
+            final String act = activity; // lambda capture
+            ActivityCard card = new ActivityCard(
+                    act,
+                    "Suggested because you feel " + mood.toLowerCase(),
+                    "Save",
+                    "✨"
+            );
+
+            // On Save → log to DB
+            card.setOnStart(() -> {
+                DatabaseManager.saveActivity(mood, act);
+                System.out.println("Saved activity: " + act + " for mood: " + mood);
+            });
+
+            recGrid.add(card, col, row);
+
+            // Arrange in 2-column grid
+            col++;
+            if (col > 1) {
+                col = 0;
+                row++;
+            }
+        }
+
+        VBox recBox = new VBox(recGrid);
+        recBox.setPadding(new Insets(16));
+        recBox.getStyleClass().add("card"); // ← glass effect
+
+        TitledPane recPane = new TitledPane("✨ Recommended for " + mood, recGrid);
+        recPane.setExpanded(true);
+        recPane.getStyleClass().add("section-title");
+
+        // Add both sections to scrollable container
+        container.getChildren().addAll(corePane, recPane);
+        scrollPane.setContent(container);
+        scrollPane.setStyle("-fx-background: transparent; -fx-background-color: transparent;");
+
+        
+         // Add scroll pane to main VBox
+        getChildren().add(scrollPane);
     }
 }

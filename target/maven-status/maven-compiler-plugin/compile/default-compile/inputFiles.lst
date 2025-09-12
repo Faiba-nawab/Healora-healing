@@ -6,6 +6,7 @@ C:\Users\acer\Desktop\Healora\healora\src\main\java\com\healora\activities\MoodS
 C:\Users\acer\Desktop\Healora\healora\src\main\java\com\healora\activities\MoodType.java
 C:\Users\acer\Desktop\Healora\healora\src\main\java\com\healora\activities\QuoteDAO.java
 C:\Users\acer\Desktop\Healora\healora\src\main\java\com\healora\activities\SuggestionService.java
+C:\Users\acer\Desktop\Healora\healora\src\main\java\com\healora\data\ActivityContent.java
 C:\Users\acer\Desktop\Healora\healora\src\main\java\com\healora\DatabaseManager.java
 C:\Users\acer\Desktop\Healora\healora\src\main\java\com\healora\IndexController.java
 C:\Users\acer\Desktop\Healora\healora\src\main\java\com\healora\Main.java
@@ -17,6 +18,7 @@ C:\Users\acer\Desktop\Healora\healora\src\main\java\com\healora\ui\ActivityRunne
 C:\Users\acer\Desktop\Healora\healora\src\main\java\com\healora\ui\AppStageProvider.java
 C:\Users\acer\Desktop\Healora\healora\src\main\java\com\healora\ui\BreathingDialog.java
 C:\Users\acer\Desktop\Healora\healora\src\main\java\com\healora\ui\JournalDialog.java
+C:\Users\acer\Desktop\Healora\healora\src\main\java\com\healora\ui\MoodPane.java
 C:\Users\acer\Desktop\Healora\healora\src\main\java\com\healora\ui\MusicLauncher.java
 C:\Users\acer\Desktop\Healora\healora\src\main\java\com\healora\ui\Sidebar.java
 C:\Users\acer\Desktop\Healora\healora\src\main\java\com\healora\ui\SimpleTimerDialog.java

@@ -27,6 +27,30 @@ public class DatabaseManager {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+            
+        String sqlMoods = "CREATE TABLE IF NOT EXISTS moods (" +
+            "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+            "mood TEXT NOT NULL, " +
+            "timestamp DATETIME DEFAULT CURRENT_TIMESTAMP)";
+        // Create activities_log table if not exists
+        try (Connection conn = connect(); Statement stmt = conn.createStatement()) {
+            stmt.execute(sqlMoods);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+       String activitySql = "CREATE TABLE IF NOT EXISTS activities_log (" +
+        "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+        "mood TEXT NOT NULL, " +
+        "activity TEXT NOT NULL, " +
+        "timestamp DATETIME DEFAULT CURRENT_TIMESTAMP" +
+        ")";
+     try (Connection conn = connect(); Statement stmt = conn.createStatement()) {
+    stmt.execute(activitySql);
+} catch (SQLException e) {
+    e.printStackTrace();
+}
+
     }
 
     // Data model
@@ -194,4 +218,69 @@ public class DatabaseManager {
        
         throw new UnsupportedOperationException("Unimplemented method 'getJournalContent'");
     }
+    
+    // Save a mood selection
+public static void saveMood(String mood) {
+    String sql = "INSERT INTO moods(mood) VALUES(?)";
+    try (Connection conn = connect(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
+        pstmt.setString(1, mood);
+        pstmt.executeUpdate();
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+}
+public static String getRecentMood() {
+    String sql = "SELECT mood FROM moods ORDER BY timestamp DESC LIMIT 1";
+    try (Connection conn = connect(); Statement stmt = conn.createStatement();
+         ResultSet rs = stmt.executeQuery(sql)) {
+        if (rs.next()) {
+            String m = rs.getString("mood");
+            return m != null ? m : "Neutral";
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+    return "Neutral";
+}
+
+    public static void saveActivity(String mood, String activity) {
+    String sql = "INSERT INTO activities_log(mood, activity) VALUES(?, ?)";
+    try (Connection conn = connect(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
+        pstmt.setString(1, mood);
+        pstmt.setString(2, activity);
+        pstmt.executeUpdate();
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+}
+    
+
+    public static List<String> getAllSavedActivities() {
+    List<String> activities = new ArrayList<>();
+    String sql = "SELECT mood, activity, timestamp FROM activities_log ORDER BY timestamp DESC";
+    try (Connection conn = connect(); Statement stmt = conn.createStatement();
+         ResultSet rs = stmt.executeQuery(sql)) {
+        while (rs.next()) {
+            String mood = rs.getString("mood");
+            String activity = rs.getString("activity");
+            String time = rs.getString("timestamp");
+            activities.add("[" + time + "] " + mood + " → " + activity);
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+    return activities;
+}
+    
+    public static void deleteActivity(int id) {
+    String sql = "DELETE FROM activities_log WHERE id=?";
+    try (Connection conn = connect(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
+        pstmt.setInt(1, id);
+        pstmt.executeUpdate();
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+}
+
+
 }

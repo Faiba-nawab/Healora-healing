@@ -17,7 +17,7 @@ public class ActivityCard extends VBox {
         // Force system emoji font
         emojiText.setStyle(
             "-fx-font-family: 'Segoe UI Emoji','Apple Color Emoji','Noto Color Emoji';" +
-            "-fx-font-size: 32px;"
+            "-fx-font-size: 28px;"
         );
         buildCard(title, desc, cta, emojiText, emoji);
     }

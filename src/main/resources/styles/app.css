@@ -89,6 +89,8 @@
   -fx-fill: white;
   font-size: 28px;
   -fx-font-size: 28px;
+  font-family: "Inter", "Segoe UI Emoji", "Noto Color Emoji", "Arial Unicode MS", sans-serif;
+  -fx-font-family: "Inter", "Segoe UI Emoji", "Noto Color Emoji","Arial Unicode MS", sans-serif;
 }
 
 .card-title {
@@ -130,7 +132,7 @@
   min-height: 0;          /* allow shrinking */
   -fx-min-height: 0;
   -fx-pref-height: 36px;       /* desired height */
-  -fx-pref-width: 79px;    
+  -fx-pref-width: 82px;    
 }
 .primary-btn:hover {
   background-color: linear-gradient(to right, #5b86e5, #36d1dc);
@@ -188,12 +190,6 @@
     -fx-background-radius: 8;
 }
 
-.activity-label {
-   font-size: 16px;
-    -fx-font-size: 16px;
-    font-family: "Segoe UI Emoji", "Noto Color Emoji", "Arial Unicode MS", sans-serif;
-    -fx-font-family: "Segoe UI Emoji", "Noto Color Emoji", "Arial Unicode MS", sans-serif;
-}
 
 
 /* ===================== */

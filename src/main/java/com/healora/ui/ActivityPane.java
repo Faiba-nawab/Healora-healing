@@ -5,6 +5,7 @@ import javafx.geometry.Insets;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TitledPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
@@ -30,8 +31,8 @@ public class ActivityPane extends VBox {
         scrollPane.setStyle("-fx-background: transparent; -fx-background-color: transparent;");
 
 
-        VBox container = new VBox(24);
-        container.setPadding(new Insets(0));
+        VBox container = new VBox(8);
+        container.setPadding(new Insets(24));
 
 
         // Grid of activity cards
@@ -91,32 +92,16 @@ public class ActivityPane extends VBox {
         col = 0;
         row = 0;
 
-        List<String> activities = ActivityContent.getActivities(mood);
-        for (String activity : activities) {
-            final String act = activity; // lambda capture
-            ActivityCard card = new ActivityCard(
-                    act,
-                    "Suggested because you feel " + mood.toLowerCase(),
-                    "Save",
-                    "✨"
-            );
+        List<ActivityCard> activities = ActivityContent.getActivityCards(mood);
+        for (ActivityCard card : activities) {
+        recGrid.add(card, col, row);
 
-            // On Save → log to DB
-            card.setOnStart(() -> {
-                DatabaseManager.saveActivity(mood, act);
-                System.out.println("Saved activity: " + act + " for mood: " + mood);
-            });
-
-            recGrid.add(card, col, row);
-
-            // Arrange in 2-column grid
-            col++;
-            if (col > 1) {
-                col = 0;
-                row++;
-            }
-        }
-
+             col++;
+             if (col > 1) {
+             col = 0;
+             row++;
+             }
+}
         VBox recBox = new VBox(recGrid);
         recBox.setPadding(new Insets(16));
         recBox.getStyleClass().add("card"); // ← glass effect

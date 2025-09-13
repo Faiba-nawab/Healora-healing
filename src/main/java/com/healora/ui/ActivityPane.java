@@ -8,6 +8,11 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
+import com.healora.activities.SuggestionService;
+import com.healora.activities.RealMoodStatsProvider;
+import com.healora.activities.HealingActivity;
+import com.healora.activities.MoodType;
+
 
 import java.util.List;
 

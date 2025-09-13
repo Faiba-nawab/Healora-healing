@@ -7,6 +7,7 @@ com\healora\IndexController$1.class
 com\healora\ui\ActivityCard.class
 com\healora\models\JournalPage.class
 com\healora\ui\ActivityRunner.class
+com\healora\activities\RealMoodStatsProvider.class
 com\healora\ui\BreathingDialog.class
 com\healora\ui\ActivityPane.class
 com\healora\activities\ActivityType.class

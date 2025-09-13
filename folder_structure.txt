@@ -1,0 +1,113 @@
+Folder PATH listing for volume ACER
+Volume serial number is 9467-634A
+C:.
+|   folder_structure.txt
+|   healora.db
+|   pom.xml
+|   
++---src
+|   +---main
+|   |   +---java
+|   |   |   \---com
+|   |   |       \---healora
+|   |   |           |   DatabaseManager.java
+|   |   |           |   index.fxml
+|   |   |           |   IndexController.java
+|   |   |           |   Main.java
+|   |   |           |   Seeder.java
+|   |   |           |   
+|   |   |           +---activities
+|   |   |           |       ActivityType.java
+|   |   |           |       DummyMoodStatsProvider.java
+|   |   |           |       HealingActivity.java
+|   |   |           |       HealingActivityDAO.java
+|   |   |           |       MoodStatsProvider.java
+|   |   |           |       MoodType.java
+|   |   |           |       QuoteDAO.java
+|   |   |           |       SuggestionService.java
+|   |   |           |       
+|   |   |           +---data
+|   |   |           |       ActivityContent.java
+|   |   |           |       
+|   |   |           +---models
+|   |   |           |       JournalPage.java
+|   |   |           |       
+|   |   |           \---ui
+|   |   |                   ActivityCard.java
+|   |   |                   ActivityPane.java
+|   |   |                   ActivityRunner.java
+|   |   |                   AppStageProvider.java
+|   |   |                   BreathingDialog.java
+|   |   |                   JournalDialog.java
+|   |   |                   MoodPane.java
+|   |   |                   MusicLauncher.java
+|   |   |                   Sidebar.java
+|   |   |                   SimpleTimerDialog.java
+|   |   |                   
+|   |   \---resources
+|   |       +---db
+|   |       |       schema.sql
+|   |       |       seed.sql
+|   |       |       
+|   |       \---styles
+|   |               app.css
+|   |               
+|   \---test
+|       \---java
+\---target
+    +---classes
+    |   +---com
+    |   |   \---healora
+    |   |       |   DatabaseManager$JournalEntry.class
+    |   |       |   DatabaseManager.class
+    |   |       |   IndexController$1.class
+    |   |       |   IndexController.class
+    |   |       |   Main.class
+    |   |       |   Seeder.class
+    |   |       |   
+    |   |       +---activities
+    |   |       |       ActivityType.class
+    |   |       |       DummyMoodStatsProvider.class
+    |   |       |       HealingActivity.class
+    |   |       |       HealingActivityDAO.class
+    |   |       |       MoodStatsProvider.class
+    |   |       |       MoodType.class
+    |   |       |       QuoteDAO.class
+    |   |       |       SuggestionService.class
+    |   |       |       
+    |   |       +---data
+    |   |       |       ActivityContent.class
+    |   |       |       
+    |   |       +---models
+    |   |       |       JournalPage.class
+    |   |       |       
+    |   |       \---ui
+    |   |               ActivityCard.class
+    |   |               ActivityPane.class
+    |   |               ActivityRunner$1.class
+    |   |               ActivityRunner.class
+    |   |               AppStageProvider.class
+    |   |               BreathingDialog.class
+    |   |               JournalDialog.class
+    |   |               MoodPane$MoodSelectionListener.class
+    |   |               MoodPane.class
+    |   |               MusicLauncher.class
+    |   |               Sidebar.class
+    |   |               SimpleTimerDialog.class
+    |   |               
+    |   +---db
+    |   |       schema.sql
+    |   |       seed.sql
+    |   |       
+    |   \---styles
+    |           app.css
+    |           
+    +---generated-sources
+    |   \---annotations
+    \---maven-status
+        \---maven-compiler-plugin
+            \---compile
+                \---default-compile
+                        createdFiles.lst
+                        inputFiles.lst
+                        

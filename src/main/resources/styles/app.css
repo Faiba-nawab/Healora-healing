@@ -132,7 +132,7 @@
   min-height: 0;          /* allow shrinking */
   -fx-min-height: 0;
   -fx-pref-height: 36px;       /* desired height */
-  -fx-pref-width: 82px;    
+  -fx-pref-width: 85px;    
 }
 .primary-btn:hover {
   background-color: linear-gradient(to right, #5b86e5, #36d1dc);
@@ -381,17 +381,66 @@
     -fx-scale-y: 1.05;
 }
 
-/* Special style for settings button */
-.settings-btn {
-    background-color: #43cea2;
-    -fx-background-color: linear-gradient(to bottom, #43cea2, #185a9d);
-    -fx-text-fill: white;
-    font-size: 16px;
-    -fx-font-size: 16px;
-    -fx-background-radius: 50;
-    border-radius: 50px;
-    -fx-border-radius: 50;
-    padding: 10px;
-    -fx-padding: 10;
+/* Light Theme (default) */
+.root {
+    font-family: "Inter", "Segoe UI Emoji", "Noto Color Emoji", "Arial Unicode MS", sans-serif;
+  -fx-font-family: "Inter", "Segoe UI Emoji", "Noto Color Emoji","Arial Unicode MS", sans-serif;
+  background-color: #1a2a6c;
+  -fx-background-color: linear-gradient(to bottom right, #1a2a6c, #b21f1f, #fdbb2d);
+}
+.primary-btn {
+  background-color: linear-gradient(to right, #36d1dc, #5b86e5);
+  -fx-background-color: linear-gradient(to right, #36d1dc, #5b86e5);
+  color: white;
+  -fx-text-fill: white;
+  font-size: 18px;
+  -fx-font-size:18px;
+  font-weight: 500;
+  -fx-font-weight: 500;
+  border-radius: 12px;
+  -fx-background-radius: 12;
+  padding: 6px 12px 6px 12px;
+  -fx-padding: 4 8 4 8;
+  min-width: 0;
+   -fx-min-width: 0;  
+  min-height: 0;          /* allow shrinking */
+  -fx-min-height: 0;
+  -fx-pref-height: 38px;       /* desired height */
+  -fx-pref-width: 85px;    
+}
+.primary-btn:hover {
+  background-color: linear-gradient(to right, #5b86e5, #36d1dc);
+  -fx-background-color: linear-gradient(to right, #5b86e5, #36d1dc);
 }
 
+/* Dark Theme */
+.root.dark {
+    font-family: "Inter", "Segoe UI Emoji", "Noto Color Emoji", "Arial Unicode MS", sans-serif;
+  -fx-font-family: "Inter", "Segoe UI Emoji", "Noto Color Emoji","Arial Unicode MS", sans-serif;
+  background-color: #080f29;
+  -fx-background-color: linear-gradient(to bottom right, #080f29, #511010, #7e5f1c);
+}
+.root.dark.button.primary-btn {
+    background-color: linear-gradient(to right, #36d1dc, #5b86e5);
+  -fx-background-color: linear-gradient(to right, #36d1dc, #5b86e5);
+  color: white;
+  -fx-text-fill: white;
+  font-size: 18px;
+  -fx-font-size:18px;
+  font-weight: 500;
+  -fx-font-weight: 500;
+  border-radius: 12px;
+  -fx-background-radius: 12;
+  padding: 6px 12px 6px 12px;
+  -fx-padding: 4 8 4 8;
+  min-width: 0;
+   -fx-min-width: 0;  
+  min-height: 0;          /* allow shrinking */
+  -fx-min-height: 0;
+  -fx-pref-height: 38px;       /* desired height */
+  -fx-pref-width: 85px;    
+}
+.root.dark.primary-btn:hover {
+  background-color: linear-gradient(to right, #5b86e5, #36d1dc);
+  -fx-background-color: linear-gradient(to right, #5b86e5, #36d1dc);
+}

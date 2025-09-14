@@ -101,6 +101,7 @@ public class JournalDialog {
         Scene scene = new Scene(layout, 600, 500);
         scene.getStylesheets().add(JournalDialog.class.getResource("/styles/app.css").toExternalForm()); // <-- Add this line
         stage.setScene(scene);
+        stage.setMaximized(true);
         loadPage(pageNumber);
         stage.show();
     }
@@ -221,6 +222,7 @@ public class JournalDialog {
     Scene scene = new Scene(box, 360, 500);
     scene.getStylesheets().add(JournalDialog.class.getResource("/styles/app.css").toExternalForm());
     indexStage.setScene(scene);
+    indexStage.setMaximized(true);
     indexStage.show();
 }
     private int parsePageFromListString(String listStr) {

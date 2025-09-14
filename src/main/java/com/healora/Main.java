@@ -1,6 +1,9 @@
 package com.healora;
 
 import com.healora.ui.ActivityPane;
+import com.healora.ui.AppStageProvider;
+import com.healora.ui.Sidebar;
+import javafx.scene.Scene;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
@@ -21,10 +24,6 @@ public class Main extends Application {
         header.getStyleClass().add("app-header");
         root.setTop(header);
 
-        // Sidebar (placeholder)
-        var sidebar = new com.healora.ui.Sidebar();
-        root.setLeft(sidebar);
-
         // Center content: the nice-looking Activities grid
         var activities = new ActivityPane();
         root.setCenter(activities);
@@ -35,8 +34,14 @@ public class Main extends Application {
             getClass().getResource("/styles/app.css").toExternalForm()
         );
 
+        AppStageProvider.setPrimary(stage);
+         // Sidebar (placeholder)
+        Sidebar sidebar = new Sidebar(stage, scene);
+        root.setLeft(sidebar);
+
         stage.setTitle("Healora — Mood & Healing Activities");
         stage.setScene(scene);
+        stage.setMaximized(true);
         com.healora.ui.AppStageProvider.setPrimary(stage);
         stage.show();
         
